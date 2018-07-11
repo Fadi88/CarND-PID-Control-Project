@@ -2,7 +2,7 @@
 #define PID_H
 
 class PID {
-public:
+private:
   /*
   * Errors
   */
@@ -17,6 +17,9 @@ public:
   double Ki;
   double Kd;
 
+
+  double setpoint;
+public:
   /*
   * Constructor
   */
@@ -41,6 +44,10 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  double get_control_action();
+
+  void set_setpoint(double);
 };
 
 #endif /* PID_H */

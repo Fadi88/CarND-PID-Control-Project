@@ -27,6 +27,16 @@ void PID::UpdateError(double cte) {
 }
 
 double PID::TotalError() {
-  return Kp*p_error + Kd*d_error + Ki*i_error ;
+  double ret = Kp*p_error + Kd*d_error + Ki*i_error;
+  return ret > 1.0 ? 1.0 : (ret < -1.0 ? -1.0 : ret );
 }
 
+double PID::get_control_action() {
+
+  return setpoint - TotalError();
+}
+
+void PID::set_setpoint(double target_setpoint){
+
+  this->setpoint = target_setpoint;
+}
