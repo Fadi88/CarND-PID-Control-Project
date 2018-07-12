@@ -1,6 +1,7 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
-
+--
+##### refelction is appended to the end of the document
 ---
 
 ## Dependencies
@@ -96,3 +97,53 @@ still be compilable with cmake and make./
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
+------------------------------------------
+
+# Reflection 
+
+
+## effect of P-I-D terms on a PID controller 
+
+
+### effect of the P term
+
+P is the main part of the controller, an increase in the Kp will make the system respond faster which is the main advantage
+however it is limited by the fact that it will make the system overshoot and risk of unstabillty 
+
+one down side is that we can reach steady state error of zero only using a P controller other terms are needed for that.
+
+### effect of I term
+
+I is there at the end of the day just to elminate the steady state error if we only had a P controller and it does that exactly meaning we can achieve a SSE of zero.
+
+downside of using it is :it increases the rise time to reach steady state and we also risk of having an overshoot 
+
+### effect of D term
+
+D term is present to damp the effect of P and I when the change rate is very high it slows things down that is the idea bascily 
+so it have good effect on the chances of overshoot and can cause more system stabilty.
+
+however it also slows down the system response.
+
+in practice this term is usualy set to zero because it is very bad with noises which we usualy have on all sensors even if law pass filters were used 
+
+
+## summary 
+
+all that can be summarized in the following table ( source: Luca Furieri answer's in [Quora](https://www.quora.com/What-is-the-usefulness-of-gains-in-the-control-application) )
+
+![alt text](https://qph.ec.quoracdn.net/main-qimg-f2d4492e91d918239b807ea237c3820d)
+
+## how gain values were tuned
+
+the bigest problem here was the missing time duration between every step as it was needed to calcuted the error integral and differential so the Ki had to compasted to calucate for that as well 
+
+the tuning started by just P error till a fair response was obtained
+
+then a very slight D gain was added to damp the response.
+
+then to elminate the SSE the I term was added 
+
+then a manual trial and error was done to tune the three of them togther 
+
+please also note that the value were chosen to be passed as arguments to the main in order to avoid compiling evry time during the trials phase
